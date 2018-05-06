@@ -38,8 +38,8 @@
     const canvas = document.getElementById('viewport');
     const base_image = new Image(275, 350);
     const img = state.imageIndex;
-    if (this.state.total % 20 === 0) {
-      let imageNum = parseInt(this.state.imageIndex);
+    if (state.total % 20 === 0) {
+      let imageNum = parseInt(state.imageIndex);
       imageNum++;
       imageNum = `0000${imageNum}`;
       const imgI = imageNum.substring(imageNum.length - 4);
