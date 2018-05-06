@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>life's a drag</title>
   <script>
-    var state = {
+    const state = {
       x: 0,
       y: 0,
       rate: 2,
@@ -15,8 +15,8 @@
     }
     
     function getPos(e){
-      var x = e.clientX;
-      var y = e.clientY;
+      const x = e.clientX;
+      const y = e.clientY;
       if (state.total % state.rate === 0) {
         _createOrb(x, y);
         if (state.total > 100) {
@@ -29,20 +29,20 @@
     }
 
   function _maintainTail() {
-    var lastChild = document.getElementById('viewport').firstChild;
-    var canvas = document.getElementById('viewport');
+    const lastChild = document.getElementById('viewport').firstChild;
+    const canvas = document.getElementById('viewport');
     canvas.removeChild(lastChild);
   }
 
   function _createOrb(x, y) {
-    var canvas = document.getElementById('viewport');
-    var base_image = new Image(275, 350);
-    var img = this.state.imageIndex;
+    const canvas = document.getElementById('viewport');
+    const base_image = new Image(275, 350);
+    const img = this.state.imageIndex;
     if (this.state.total % 20 === 0) {
       let imageNum = parseInt(this.state.imageIndex);
       imageNum++;
       imageNum = `0000${imageNum}`;
-      var imgI = imageNum.substring(imageNum.length - 4);
+      const imgI = imageNum.substring(imageNum.length - 4);
       state.imageIndex = imgI;
     }
     base_image.src = `https://cigmap.s3.amazonaws.com/media/__sized__/${img}-thumbnail-400x400-70.jpg`;
