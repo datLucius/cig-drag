@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>life's a drag</title>
+  <script>
+    var state = {
+      x: 0,
+      y: 0,
+      rate: 2,
+      total: 1,
+      imageIndex: '0001'
+    }
+    
+    function getPos(e){
+      var x = e.clientX;
+      var y = e.clientY;
+      if (state.total % state.rate === 0) {
+        _createOrb(x, y);
+        if (state.total > 100) {
+          _maintainTail();
+        }
+      }
+      state.x = x;
+      state.y = y;
+      state.total++;
+    }
+
+  function _maintainTail() {
+    var lastChild = document.getElementById('viewport').firstChild;
+    var canvas = document.getElementById('viewport');
+    canvas.removeChild(lastChild);
+  }
+
+  function _createOrb(x, y) {
+    var canvas = document.getElementById('viewport');
+    var base_image = new Image(275, 350);
+    var img = this.state.imageIndex;
+    if (this.state.total % 20 === 0) {
+      let imageNum = parseInt(this.state.imageIndex);
+      imageNum++;
+      imageNum = `0000${imageNum}`;
+      var imgI = imageNum.substring(imageNum.length - 4);
+      state.imageIndex = imgI;
+    }
+    base_image.src = `https://cigmap.s3.amazonaws.com/media/__sized__/${img}-thumbnail-400x400-70.jpg`;
+    base_image.style.top = `${y - 200}px`;
+    base_image.style.left = `${x - 100}px`;
+    base_image.style.position = 'fixed';
+    canvas.appendChild(base_image);
+  }
+    </script>
+</head>
+<body>
+  <div id="viewport" onmousemove="getPos(event)" style="width: 100%; height: 100vh;"></div>
+</body>
+</html>
