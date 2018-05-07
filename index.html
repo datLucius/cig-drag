@@ -19,7 +19,7 @@
       const y = e.clientY;
       if (state.total % state.rate === 0) {
         _createOrb(x, y);
-        if (state.total > 100) {
+        if (state.total > 50) {
           _maintainTail();
         }
       }
