@@ -13,12 +13,12 @@
       total: 1,
       imageIndex: '0041'
     }
-    
-    function getPos(e){
+
+    function getPos(e, click){
       const x = e.clientX;
       const y = e.clientY;
-      if (state.total % state.rate === 0) {
-        _createOrb(x, y);
+      if ((state.total % state.rate === 0) || click) {
+        _createOrb(x, y, click);
         if (state.total > 50) {
           _maintainTail();
         }
@@ -34,11 +34,13 @@
     canvas.removeChild(lastChild);
   }
 
-  function _createOrb(x, y) {
+
+
+  function _createOrb(x, y, click) {
     const canvas = document.getElementById('viewport');
     const base_image = new Image(275, 350);
     const img = state.imageIndex;
-    if (state.total % 20 === 0) {
+    if ((state.total % 50 === 0) || click) {
       let imageNum = parseInt(state.imageIndex);
       imageNum++;
       imageNum = `0000${imageNum}`;
@@ -49,11 +51,12 @@
     base_image.style.top = `${y - 200}px`;
     base_image.style.left = `${x - 100}px`;
     base_image.style.position = 'fixed';
+    base_image.style.border = '1px solid black';
     canvas.appendChild(base_image);
   }
     </script>
 </head>
-<body>
-  <div id="viewport" onmousemove="getPos(event)" style="width: 100%; height: 100vh; cursor: none;"></div>
+<body style="background-color: black">
+  <div id="viewport" onmousemove="getPos(event)" onclick="getPos(event, true)" style="width: 100%; height: 100vh; cursor: none;"></div>
 </body>
 </html>
