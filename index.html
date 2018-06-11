@@ -40,7 +40,7 @@
     return new Promise((resolve) => {
       let imageNum = parseInt(state.imageIndex);
       imageNum++;
-      imageNum = `0000${imageNum}`;
+      imageNum = `000${imageNum}`;
       const imgI = imageNum.substring(imageNum.length - 4);
       state.imageIndex = imgI;
       resolve(state.imageIndex);
