@@ -11,7 +11,8 @@
       y: 0,
       rate: 2,
       total: 1,
-      imageIndex: '0041'
+      imageIndex: '0041',
+      timeRate: 3000,
     }
 
     function getPos(e, click){
@@ -52,8 +53,17 @@
     base_image.style.left = `${x - 100}px`;
     base_image.style.position = 'fixed';
     base_image.style.border = '1px solid black';
+    base_image.style.opacity = 1;
     canvas.appendChild(base_image);
   }
+
+
+  setInterval(() => {
+    if (state.x && state.y) {
+      _createOrb(state.x, state.y, true);
+    }
+  }, state.timeRate);
+
     </script>
 </head>
 <body style="background-color: black">
