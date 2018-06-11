@@ -11,7 +11,7 @@
       y: 0,
       rate: 2,
       total: 1,
-      imageIndex: '0041',
+      imageIndex: '0001',
       timeRate: 3000,
     }
 
@@ -36,19 +36,32 @@
   }
 
 
+  function _bumpIndex() {
+    return new Promise((resolve) => {
+      let imageNum = parseInt(state.imageIndex);
+      imageNum++;
+      imageNum = `0000${imageNum}`;
+      const imgI = imageNum.substring(imageNum.length - 4);
+      state.imageIndex = imgI;
+      resolve(state.imageIndex);
+    })
+  }
 
   function _createOrb(x, y, click) {
     const canvas = document.getElementById('viewport');
     const base_image = new Image(275, 350);
     const img = state.imageIndex;
     if ((state.total % 50 === 0) || click) {
-      let imageNum = parseInt(state.imageIndex);
-      imageNum++;
-      imageNum = `0000${imageNum}`;
-      const imgI = imageNum.substring(imageNum.length - 4);
-      state.imageIndex = imgI;
+      _bumpIndex();
     }
     base_image.src = `https://cigmap.s3.amazonaws.com/media/__sized__/${img}-thumbnail-400x400-70.jpg`;
+    base_image.onerror = () => {
+      _bumpIndex()
+        .then((imgIndex) => {
+          base_image.src = `https://cigmap.s3.amazonaws.com/media/__sized__/${imgIndex}-thumbnail-400x400-70.jpg`;
+        }
+      )
+    }
     base_image.style.top = `${y - 200}px`;
     base_image.style.left = `${x - 100}px`;
     base_image.style.position = 'fixed';
@@ -66,6 +79,9 @@
     </script>
 </head>
 <body style="background-color: black">
-  <div id="viewport" onmousemove="getPos(event)" onclick="getPos(event, true)" style="width: 100%; height: 100vh; cursor: none;"></div>
+  <div id="viewport"
+    onmousemove="getPos(event)"
+    onclick="getPos(event, true)"
+    style="width: 100%; height: 100vh; cursor: none;"></div>
 </body>
 </html>
